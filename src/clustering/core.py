@@ -1,7 +1,7 @@
 from .cluster import Cluster
 
 
-class ClusterManager(object):
+class Core(object):
     def __init__(self, number_of_clusters):
         self.number_of_clusters = int(number_of_clusters)
         self._cluster_id_incrementor = 0
@@ -14,7 +14,7 @@ class ClusterManager(object):
     def info(self):
         print 'NUMBER OF CLUSTERS: %d' % self.number_of_clusters
         for i in range(len(self.clusters)):
-            print 'CLUSTER[%d]: %s' % (i, self.clusters[i])
+            self.clusters[i].info()
 
     def _get_new_cluster_id(self):
         self._cluster_id_incrementor += 1

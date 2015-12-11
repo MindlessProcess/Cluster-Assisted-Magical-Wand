@@ -2,7 +2,7 @@
 
 import os
 import sys
-from .clustering.cluster_manager import ClusterManager
+from .clustering.core import Core
 
 
 def get_arguments(arguments):
@@ -29,9 +29,9 @@ def main():
     print '[image]: %s' % image
     print '[number_of_clusters]: %s' % number_of_clusters
 
-    cluster_manager = ClusterManager(number_of_clusters)
-    cluster_manager.run()
-    cluster_manager.info()
+    core = Core(number_of_clusters)
+    core.run()
+    core.info()
 
 if __name__ == '__main__':
     main()
