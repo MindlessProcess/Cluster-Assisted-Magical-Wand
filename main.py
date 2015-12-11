@@ -1,0 +1,31 @@
+#!/usr/bin/python
+
+import os
+import sys
+
+
+def get_arguments(arguments):
+    error = None
+    if not arguments or \
+       len(arguments) != 2 or \
+       os.path.isfile(arguments[0]) == False or \
+       arguments[1].isdigit() == False:
+        error = 'Usage: %s [FILE] [NUMBER_OF_CLUSTERS]' % sys.argv[0]
+
+    return arguments, error
+
+
+def main():
+    arguments, error = get_arguments(sys.argv[1:])
+    if error is not None:
+        print error
+        return False
+
+    image = arguments[0]
+    number_of_clusters = arguments[1]
+
+    print '[image]: %s' % image
+    print '[number_of_clusters]: %s' % number_of_clusters
+
+if __name__ == '__main__':
+    main()
