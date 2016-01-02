@@ -1,4 +1,10 @@
-from .cluster import Cluster
+import logging
+
+from . import get_debug
+from .clustering.cluster import Cluster
+
+DEBUG = get_debug()
+LOGGER = logging.getLogger(__name__)
 
 
 class Core(object):
@@ -12,7 +18,7 @@ class Core(object):
             self.clusters.append(Cluster(self._get_new_cluster_id()))
 
     def info(self):
-        print 'NUMBER OF CLUSTERS: %d' % self.number_of_clusters
+        LOGGER.info('Number of clusters: %d' % self.number_of_clusters)
         for i in range(len(self.clusters)):
             self.clusters[i].info()
 

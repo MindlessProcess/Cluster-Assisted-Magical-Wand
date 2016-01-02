@@ -1,0 +1,21 @@
+[2016-01-02 19:57:38,347] [src.main]: image -> README.md
+[2016-01-02 19:57:38,347] [src.main]: number_of_clusters -> 3
+[2016-01-02 19:57:38,347] [src.core]: Number of clusters: 3
+[2016-01-02 20:03:34,582] [src.main/INFO]: image -> README.md
+[2016-01-02 20:03:34,582] [src.main/INFO]: number_of_clusters -> 3
+[2016-01-02 20:03:34,582] [src.core/INFO]: Number of clusters: 3
+[2016-01-02 20:05:24,761] [src.main/INFO]: image -> README.md
+[2016-01-02 20:05:24,762] [src.main/INFO]: number_of_clusters -> 3
+[2016-01-02 20:05:24,762] [src.core/INFO]: Number of clusters: 3
+[2016-01-02 20:05:51,295] [src.main/INFO]: image -> README.md
+[2016-01-02 20:05:51,295] [src.main/INFO]: number_of_clusters -> 3
+[2016-01-02 20:05:51,295] [src.core/INFO]: Number of clusters: 3
+[2016-01-02 20:05:51,296] [src.clustering.cluster/INFO]: Cluster[1]: <src.clustering.cluster.Cluster object at 0x7f3ca5d6fc10>
+[2016-01-02 20:05:51,296] [src.clustering.cluster/INFO]: Cluster[2]: <src.clustering.cluster.Cluster object at 0x7f3ca5d6fc50>
+[2016-01-02 20:05:51,296] [src.clustering.cluster/INFO]: Cluster[3]: <src.clustering.cluster.Cluster object at 0x7f3ca5d6fc90>
+[2016-01-02 20:05:53,754] [src.main/INFO]: image -> README.md
+[2016-01-02 20:05:53,754] [src.main/INFO]: number_of_clusters -> 3
+[2016-01-02 20:05:53,754] [src.core/INFO]: Number of clusters: 3
+[2016-01-02 20:05:53,754] [src.clustering.cluster/INFO]: Cluster[1]: <src.clustering.cluster.Cluster object at 0x7f32cbc99c10>
+[2016-01-02 20:05:53,754] [src.clustering.cluster/INFO]: Cluster[2]: <src.clustering.cluster.Cluster object at 0x7f32cbc99c50>
+[2016-01-02 20:05:53,754] [src.clustering.cluster/INFO]: Cluster[3]: <src.clustering.cluster.Cluster object at 0x7f32cbc99c90>
