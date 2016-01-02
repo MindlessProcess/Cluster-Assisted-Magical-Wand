@@ -2,29 +2,37 @@
 
 import os
 import sys
+import argparse
+
 from .clustering.core import Core
 
 
 def get_arguments(arguments):
-    error = None
-    print arguments
-    if not arguments or \
-       len(arguments) != 2 or \
-       os.path.isfile(arguments[0]) == False or \
-       arguments[1].isdigit() == False:
-        error = 'Usage: %s [FILE] [NUMBER_OF_CLUSTERS]' % sys.argv[0]
+    parser = argparse.ArgumentParser(description='Description of your program')
+    parser.add_argument('-f', '--file', help='The image file to process',
+                        required=True)
+    parser.add_argument('-c', '--clusters', help='Number of clusters',
+                        required=True)
+    arguments = vars(parser.parse_args())
 
-    return arguments, error
+    if os.path.isfile(arguments['file']) == False:
+        sys.stderr.write('FileError: Given file doesn\'t not found\n')
+        parser.print_help()
+        sys.exit()
+
+    if arguments['clusters'].isdigit() == False:
+        sys.stderr.write('ArgumentError: Clusters must be a number\n')
+        parser.print_help()
+        sys.exit()
+
+    return arguments
 
 
 def main():
-    arguments, error = get_arguments(sys.argv[1:])
-    if error is not None:
-        print error
-        return False
+    arguments = get_arguments(sys.argv[1:])
 
-    image = arguments[0]
-    number_of_clusters = arguments[1]
+    image = arguments['file']
+    number_of_clusters = arguments['clusters']
 
     print '[image]: %s' % image
     print '[number_of_clusters]: %s' % number_of_clusters
