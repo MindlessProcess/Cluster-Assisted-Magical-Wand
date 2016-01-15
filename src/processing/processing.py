@@ -5,10 +5,9 @@ import os
 import Image
 import PIL
 import re
-from binascii import hexlify
 
 
-class Processing():
+class Processing(object):
     def __init__(self, filename):
         print 'Processing'
         self.main_picture = Image.open(filename)
@@ -32,26 +31,19 @@ class Processing():
         ptr = list(self.main_picture.getdata())
         p_ls = []
         for i in ptr:
-            old = i
             ls = list(i)
             ls[0] = (int(self.get_256(ls[0])) + 1) * 64 - 1
             ls[1] = (int(self.get_256(ls[1])) + 1) * 64 - 1
             ls[2] = (int(self.get_256(ls[2])) + 1) * 64 - 1
             ls[3] = (int(self.get_256(ls[3])) + 1) * 64 - 1
             p_ls.append(tuple(ls))
-# debug
-#            print "Old:"
-#            print old
-#            print "New:"
-#            print i
-#            print
         self.output = Image.new("RGB", self.main_picture.size)
         self.output.putdata(p_ls)
 # visual for diff
 #        self.output.show()
 #        self.main_picture.show()
 
-### TO BE COMMENTED LATER
+# TO BE COMMENTED LATER
 
 
 def main(argv):
@@ -63,7 +55,7 @@ def main(argv):
     return True
 
 if __name__ == "__main__":
-    main(len(sys.argv), sys.argv)
+    main(sys.argv)
 
 
 ####
