@@ -15,11 +15,6 @@ class Processing():
         self.pixel_string = self.main_picture.tostring()
         self.width, self.height = self.main_picture.size
 
-    def splitWithSpan(self, ptr, span):
-        words = list(ptr)
-        table = [", ".join(words[i:i+span]) for i in range(0, len(words), span)]
-        return table
-
     def get_256(self, value):
         norm = ""
         if value >= 0 and value < 64:
@@ -35,6 +30,7 @@ class Processing():
     def norm_preview(self):
         self.pxl_str = []
         ptr = list(self.main_picture.getdata())
+        p_ls = []
         for i in ptr:
             old = i
             ls = list(i)
@@ -42,43 +38,20 @@ class Processing():
             ls[1] = (int(self.get_256(ls[1])) + 1) * 64 - 1
             ls[2] = (int(self.get_256(ls[2])) + 1) * 64 - 1
             ls[3] = (int(self.get_256(ls[3])) + 1) * 64 - 1
-            i = tuple(ls)
-            print "Old:"
-            print old
-            print "New:"
-            print i
-            print
-        self.display = Image.new("RGB", self.main_picture.size)
-        self.display.putdata(ptr)
-        self.display.show()
-        self.main_picture.show()
+            p_ls.append(tuple(ls))
+# debug
+#            print "Old:"
+#            print old
+#            print "New:"
+#            print i
+#            print
+        self.output = Image.new("RGB", self.main_picture.size)
+        self.output.putdata(p_ls)
+# visual for diff
+#        self.output.show()
+#        self.main_picture.show()
 
-    def convert_to_256(self):
-        self.pxl_tab = []
-        tmp = []
-        line = []
-        l = 0
-        k = 0
-        for i in self.pixel_string:
-            tmp.append(self.get_256(int(hexlify(i), 16)))
-            k += 1
-            if k == 3:
-                k = 0
-                tmp = ["".join(tmp)]
-                line.append(tmp)
-                tmp = []
-            l += 1
-            if l == self.width:
-                self.pxl_tab.append(line)
-                line = []
-                l = 0
-
-        print self.pxl_tab
-#        print len(self.new_pxl_str)
-
-#        pixel_table = self.splitWithSpan(self.new_pxl_str, 3)
-#        table = set(pixel_table)
-#        print list(table)
+### TO BE COMMENTED LATER
 
 
 def main(argv):
@@ -87,8 +60,42 @@ def main(argv):
         return False
     output = Processing(argv[1])
     output.norm_preview()
-#    output.convert_to_256()
     return True
 
 if __name__ == "__main__":
-    main(sys.argv)
+    main(len(sys.argv), sys.argv)
+
+
+####
+####   ANYTHING BELOW THIS IS DEPRECATED OR TOO OLD...
+####
+
+#    def convert_to_256(self):
+#        self.pxl_tab = []
+#        tmp = []
+#        line = []
+#        l = 0
+#        k = 0
+#        for i in self.pixel_string:
+#            tmp.append(self.get_256(int(hexlify(i), 16)))
+#            k += 1
+#            if k == 3:
+#                k = 0
+#                tmp = ["".join(tmp)]
+#                line.append(tmp)
+#                tmp = []
+#            l += 1
+#            if l == self.width:
+#                self.pxl_tab.append(line)
+#                line = []
+#                l = 0
+#        print self.pxl_tab
+#        print len(self.new_pxl_str)
+#        pixel_table = self.splitWithSpan(self.new_pxl_str, 3)
+#        table = set(pixel_table)
+#        print list(table)
+
+#    def splitWithSpan(self, ptr, span):
+#        words = list(ptr)
+#        table = [", ".join(words[i:i+span]) for i in range(0, len(words), span)]
+#        return table

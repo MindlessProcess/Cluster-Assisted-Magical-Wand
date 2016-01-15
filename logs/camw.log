@@ -19,3 +19,16 @@
 [2016-01-02 20:05:53,754] [src.clustering.cluster/INFO]: Cluster[1]: <src.clustering.cluster.Cluster object at 0x7f32cbc99c10>
 [2016-01-02 20:05:53,754] [src.clustering.cluster/INFO]: Cluster[2]: <src.clustering.cluster.Cluster object at 0x7f32cbc99c50>
 [2016-01-02 20:05:53,754] [src.clustering.cluster/INFO]: Cluster[3]: <src.clustering.cluster.Cluster object at 0x7f32cbc99c90>
+[2016-01-15 14:42:21,040] [src.main/INFO]: image -> README.md
+[2016-01-15 14:42:21,040] [src.main/INFO]: number_of_clusters -> 10
+[2016-01-15 14:42:21,043] [src.core/INFO]: Number of clusters: 10
+[2016-01-15 14:42:21,044] [src.clustering.cluster/INFO]: Cluster[1]: <src.clustering.cluster.Cluster object at 0x7fbd83e4df10>
+[2016-01-15 14:42:21,045] [src.clustering.cluster/INFO]: Cluster[2]: <src.clustering.cluster.Cluster object at 0x7fbd83e4df50>
+[2016-01-15 14:42:21,045] [src.clustering.cluster/INFO]: Cluster[3]: <src.clustering.cluster.Cluster object at 0x7fbd83e4df90>
+[2016-01-15 14:42:21,045] [src.clustering.cluster/INFO]: Cluster[4]: <src.clustering.cluster.Cluster object at 0x7fbd83e4dfd0>
+[2016-01-15 14:42:21,045] [src.clustering.cluster/INFO]: Cluster[5]: <src.clustering.cluster.Cluster object at 0x7fbd83e56050>
+[2016-01-15 14:42:21,045] [src.clustering.cluster/INFO]: Cluster[6]: <src.clustering.cluster.Cluster object at 0x7fbd83e56090>
+[2016-01-15 14:42:21,045] [src.clustering.cluster/INFO]: Cluster[7]: <src.clustering.cluster.Cluster object at 0x7fbd83e560d0>
+[2016-01-15 14:42:21,046] [src.clustering.cluster/INFO]: Cluster[8]: <src.clustering.cluster.Cluster object at 0x7fbd83e56110>
+[2016-01-15 14:42:21,046] [src.clustering.cluster/INFO]: Cluster[9]: <src.clustering.cluster.Cluster object at 0x7fbd83e56150>
+[2016-01-15 14:42:21,046] [src.clustering.cluster/INFO]: Cluster[10]: <src.clustering.cluster.Cluster object at 0x7fbd83e56190>
