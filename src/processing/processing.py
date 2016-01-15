@@ -7,6 +7,7 @@ import PIL
 import re
 from binascii import hexlify
 
+
 class Processing():
     def __init__(self, filename):
         print 'Processing'
@@ -51,7 +52,6 @@ class Processing():
         self.display.putdata(ptr)
         self.display.show()
         self.main_picture.show()
-        
 
     def convert_to_256(self):
         self.pxl_tab = []
@@ -72,7 +72,6 @@ class Processing():
                 self.pxl_tab.append(line)
                 line = []
                 l = 0
-            
 
         print self.pxl_tab
 #        print len(self.new_pxl_str)
@@ -81,8 +80,9 @@ class Processing():
 #        table = set(pixel_table)
 #        print list(table)
 
-def main(argc, argv):
-    if False == os.path.isfile(argv[1]):
+
+def main(argv):
+    if os.path.isfile(argv[1]) is False:
         print "File [" + argv[1] + "] not found!"
         return False
     output = Processing(argv[1])
@@ -91,4 +91,4 @@ def main(argc, argv):
     return True
 
 if __name__ == "__main__":
-    main(len(sys.argv), sys.argv)
+    main(sys.argv)
