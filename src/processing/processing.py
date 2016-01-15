@@ -5,9 +5,13 @@ import os
 import Image
 import PIL
 import re
-from binascii import hexlify
 
+<<<<<<< HEAD
 class Processing():
+=======
+
+class Processing(object):
+>>>>>>> 7dbc0340379723429cdc5b9fb7963f62f93dd396
     def __init__(self, filename):
         print 'Processing...'
 #        HEX_MAX = 256
@@ -49,6 +53,7 @@ class Processing():
         ptr = list(self.main_picture.getdata())
         p_ls = []
         for i in ptr:
+<<<<<<< HEAD
             # parser
             val = i
             pix = (self.get_256(val[1]), self.get_256(val[2]), self.get_256(val[3]))
@@ -85,6 +90,21 @@ class Processing():
 #        self.main_picture.show()
         
 ### TO BE COMMENTED LATER
+=======
+            ls = list(i)
+            ls[0] = (int(self.get_256(ls[0])) + 1) * 64 - 1
+            ls[1] = (int(self.get_256(ls[1])) + 1) * 64 - 1
+            ls[2] = (int(self.get_256(ls[2])) + 1) * 64 - 1
+            ls[3] = (int(self.get_256(ls[3])) + 1) * 64 - 1
+            p_ls.append(tuple(ls))
+        self.output = Image.new("RGB", self.main_picture.size)
+        self.output.putdata(p_ls)
+# visual for diff
+#        self.output.show()
+#        self.main_picture.show()
+
+# TO BE COMMENTED LATER
+>>>>>>> 7dbc0340379723429cdc5b9fb7963f62f93dd396
 
 
 def main(argc, argv):
@@ -96,7 +116,7 @@ def main(argc, argv):
     return True
 
 if __name__ == "__main__":
-    main(len(sys.argv), sys.argv)
+    main(sys.argv)
 
 
 ####
