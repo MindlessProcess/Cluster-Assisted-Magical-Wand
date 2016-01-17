@@ -6,12 +6,33 @@ import Image
 import PIL
 import re
 
-<<<<<<< HEAD
-class Processing():
-=======
+###
+### Processing will handle these parsed results:
+###
 
-class Processing(object):
->>>>>>> 7dbc0340379723429cdc5b9fb7963f62f93dd396
+###  self.width, self.height
+
+###
+###  self.output: (pixelwise normalized image)
+###
+###  [ [ (0, 0, 0), (1, 0, 1), ..., (0, 0, 0) ],
+###    [ ...                      , (0, 0, 0) ],
+###    [ ...                      , (0, 0, 0) ] ]
+###
+
+###
+###  self.histogram: (pixel count of the same color)
+###
+###       R  G  B   Pixel Count
+###
+###  [ [ (0, 0, 0), X ],
+###    [ (0, 0, 1), X ],
+###    [ (0, 0, 2), X ],
+###    [ ...          ] ]
+###
+
+
+class Processing():
     def __init__(self, filename):
         print 'Processing...'
 #        HEX_MAX = 256
@@ -53,7 +74,6 @@ class Processing(object):
         ptr = list(self.main_picture.getdata())
         p_ls = []
         for i in ptr:
-<<<<<<< HEAD
             # parser
             val = i
             pix = (self.get_256(val[1]), self.get_256(val[2]), self.get_256(val[3]))
@@ -90,24 +110,8 @@ class Processing(object):
 #        self.main_picture.show()
         
 ### TO BE COMMENTED LATER
-=======
-            ls = list(i)
-            ls[0] = (int(self.get_256(ls[0])) + 1) * 64 - 1
-            ls[1] = (int(self.get_256(ls[1])) + 1) * 64 - 1
-            ls[2] = (int(self.get_256(ls[2])) + 1) * 64 - 1
-            ls[3] = (int(self.get_256(ls[3])) + 1) * 64 - 1
-            p_ls.append(tuple(ls))
-        self.output = Image.new("RGB", self.main_picture.size)
-        self.output.putdata(p_ls)
-# visual for diff
-#        self.output.show()
-#        self.main_picture.show()
 
-# TO BE COMMENTED LATER
->>>>>>> 7dbc0340379723429cdc5b9fb7963f62f93dd396
-
-
-def main(argc, argv):
+def main(argv):
     if False == os.path.isfile(argv[1]):
         print "File [" + argv[1] + "] not found!"
         return False
