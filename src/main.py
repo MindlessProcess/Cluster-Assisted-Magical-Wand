@@ -5,6 +5,7 @@ import sys
 import logging
 import argparse
 from random import randint
+from processing import processing
 
 from . import DEBUG, get_debug
 from .neural_network.super_neuron import SuperNeuron
@@ -51,8 +52,30 @@ def get_arguments(arguments):
 
     return arguments
 
+def main(argv):
+    if False == os.path.isfile(argv[1]):
+        print "File [" + argv[1] + "] not found!"
+        return
+    image = Processing(argv[1])
+    image.norm_data()
 
-def main():
+    super_neuron = SuperNeuron(image.output, (image.height, image.width), image.histogram)
+    display = []
+    for i in super_neuron.neuron:
+        cluster_data = i.image_segments
+        cl = []
+        for k in cluster_data:
+            cl.append(k['x'], k['y'])
+        cl_pxl = [(0, 0, 0)] * image.height * image.width
+        for n in cl:
+            pos = (n[1] * image.width) + n[0]
+            cl_pxl[pos] = image.ptr[pos]
+            cluster = Image.new("RGB", image.main_picture.size)
+            cluster.putdata(cl_pxl)
+            display.append(cluster)
+    for i in display:
+        i.show()
+
     # arguments = get_arguments(sys.argv[1:])
 
     # image = arguments['file']
@@ -67,22 +90,22 @@ def main():
     # core.run()
     # if DEBUG:
     #     core.info()
-    image = []
+#    image = []
+#
+#    for y in range(5):
+#        image.append([])
+#        for x in range(5):
+#            image[y].append(randint(0, 9))
 
-    for y in range(5):
-        image.append([])
-        for x in range(5):
-            image[y].append(randint(0, 9))
+#    if DEBUG:
+#        print 'Displaying image:\n'
+#        for y in range(len(image)):
+#            for x in range(len(image[y])):
+#                sys.stdout.write('%d, ' % image[y][x] if x < len(image[y]) - 1 else '%d\n' % image[y][x])
+#        print '\n-----\n'
 
-    if DEBUG:
-        print 'Displaying image:\n'
-        for y in range(len(image)):
-            for x in range(len(image[y])):
-                sys.stdout.write('%d, ' % image[y][x] if x < len(image[y]) - 1 else '%d\n' % image[y][x])
-        print '\n-----\n'
-
-    super_neuron = SuperNeuron(image, (5, 5), None)
-    super_neuron.merge_neighbour_neurons()
+#    super_neuron = SuperNeuron(image, (5, 5), None)
+#    super_neuron.merge_neighbour_neurons()
 
 if __name__ == '__main__':
-    main()
+    main(sys.argv)

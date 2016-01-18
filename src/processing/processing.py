@@ -44,8 +44,6 @@ class Processing():
             for G in range (0, 4):
                 for B in range(0, 4):
                     self.histogram.append([(R, G, B), 0])
-#        print self.histogram
-#        print len(self.histogram)
 
     def get_256(self, value):
         norm = -1
@@ -64,16 +62,16 @@ class Processing():
             if rgb == i[0]:
                 i[1] += 1
 
-    def norm_preview(self):
+    def norm_data(self):
         # preprocess parser
         self.output = []
         line = []
         l = 0
 
         # display purposes
-        ptr = list(self.main_picture.getdata())
+        self.ptr = list(self.main_picture.getdata())
         p_ls = []
-        for i in ptr:
+        for i in self.ptr:
             # parser
             val = i
             pix = (self.get_256(val[1]), self.get_256(val[2]), self.get_256(val[3]))
@@ -93,34 +91,31 @@ class Processing():
             ls[3] = (self.get_256(ls[3]) + 1) * 64 - 1
             p_ls.append(tuple(ls))
 
-# histogram debug material
-#        print self.histogram
-#        print len(self.histogram)
-#        res = 0
-#        for i in self.histogram:
-#            res += i[1]
-#        print res
-#        print self.width * self.height
-
-#display purposes
-#        self.display = Image.new("RGB", self.main_picture.size)
-#        self.display.putdata(p_ls)
-#
-#        self.display.show()
-#        self.main_picture.show()
+    def show_result(self):
+        print self.histogram
+        print len(self.histogram)
+        res = 0
+        for i in self.histogram:
+            res += i[1]
+        print res
+        print self.width * self.height
+        self.display = Image.new("RGB", self.main_picture.size)
+        self.display.putdata(p_ls)
+        self.display.show()
+        self.main_picture.show()
         
 ### TO BE COMMENTED LATER
 
-def main(argv):
-    if False == os.path.isfile(argv[1]):
-        print "File [" + argv[1] + "] not found!"
-        return False
-    output = Processing(argv[1])
-    output.norm_preview()
-    return True
+#def main(argv):
+#    if False == os.path.isfile(argv[1]):
+#        print "File [" + argv[1] + "] not found!"
+#        return False
+#    output = Processing(argv[1])
+#    output.norm_data()
+#    return True
 
-if __name__ == "__main__":
-    main(sys.argv)
+#if __name__ == "__main__":
+#    main(sys.argv)
 
 
 ####
