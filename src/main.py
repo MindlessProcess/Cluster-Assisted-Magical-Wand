@@ -60,6 +60,7 @@ def main(argv):
     image.norm_data()
 
     super_neuron = SuperNeuron(image.output, (image.height, image.width), image.histogram)
+    super_neuron.merge_neighbour_neurons()
     display = []
 
     print "Neural Network determines: "
