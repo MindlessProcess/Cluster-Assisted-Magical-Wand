@@ -6,10 +6,9 @@ import logging
 import argparse
 from random import randint
 
-
 from . import DEBUG, get_debug
 from .neural_network.super_neuron import SuperNeuron
-from .processing import processing
+from .processing.processing import Processing, Image, PIL, re
 
 # DEBUG = get_debug()
 # DEBUG = 1
@@ -62,11 +61,11 @@ def main(argv):
 
     super_neuron = SuperNeuron(image.output, (image.height, image.width), image.histogram)
     display = []
-    for i in super_neuron.neuron:
+    for i in super_neuron.neurons:
         cluster_data = i.image_segments
         cl = []
         for k in cluster_data:
-            cl.append(k['x'], k['y'])
+            cl.append((k['x'], k['y']))
         cl_pxl = [(0, 0, 0)] * image.height * image.width
         for n in cl:
             pos = (n[1] * image.width) + n[0]

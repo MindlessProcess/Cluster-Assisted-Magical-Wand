@@ -32,7 +32,7 @@ import re
 ###
 
 
-class Processing():
+class Processing:
     def __init__(self, filename):
         print 'Processing...'
 #        HEX_MAX = 256
