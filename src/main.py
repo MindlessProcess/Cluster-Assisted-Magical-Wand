@@ -5,10 +5,11 @@ import sys
 import logging
 import argparse
 from random import randint
-from processing import processing
+
 
 from . import DEBUG, get_debug
 from .neural_network.super_neuron import SuperNeuron
+from .processing import processing
 
 # DEBUG = get_debug()
 # DEBUG = 1
