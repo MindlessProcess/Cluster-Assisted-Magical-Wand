@@ -58,32 +58,45 @@ def main(argv):
         return
     image = Processing(argv[1])
     image.norm_data()
+    
+    im_size = float(image.width * image.height)
+    print "Image Size: " + str(im_size)
+    print "Histogram of size: " + str(len(image.histogram))
+    print "Tolerance of: " + str(im_size / 500)
+    print "#############################################"
+    for i in image.histogram:
+        if i[1] > im_size / 500 :
+            print i
+    print "##############################################"
+    for i in image.histogram:
+        if i[1] != 0:
+            print i
 
     super_neuron = SuperNeuron(image.output, (image.height, image.width), image.histogram)
-    super_neuron.merge_neighbour_neurons()
-    display = []
+#    super_neuron.merge_neighbour_neurons()
+#    display = []
 
-    print "Neural Network determines: "
-    print str(len(super_neuron.neurons)) + " clusters in the image"
+#    print "Neural Network determines: "
+#    print str(len(super_neuron.neurons)) + " clusters in the image"
 
-    for i in super_neuron.neurons:
-        cluster_data = i.image_segments
-        cl = []
+#    for i in super_neuron.neurons:
+#        cluster_data = i.image_segments
+#        cl = []
 
-#        print "Cluster has been detected"
-#        print "Size: " + str(len(cluster_data))
+###        print "Cluster has been detected"
+###        print "Size: " + str(len(cluster_data))
 
-        for k in cluster_data:
-            cl.append((k['x'], k['y']))
-        cl_pxl = [(0, 0, 0)] * image.height * image.width
-        for n in cl:
-            pos = (n[1] * image.width) + n[0]
-            cl_pxl[pos] = image.ptr[pos]
-            cluster = Image.new("RGB", image.main_picture.size)
-            cluster.putdata(cl_pxl)
-            display.append(cluster)
-    for i in display:
-        i.show()
+#        for k in cluster_data:
+#            cl.append((k['x'], k['y']))
+#        cl_pxl = [(0, 0, 0)] * image.height * image.width
+#        for n in cl:
+#            pos = (n[1] * image.width) + n[0]
+#            cl_pxl[pos] = image.ptr[pos]
+#            cluster = Image.new("RGB", image.main_picture.size)
+#            cluster.putdata(cl_pxl)
+#            display.append(cluster)
+#    for i in display:
+#        i.show()
 
     # arguments = get_arguments(sys.argv[1:])
 
