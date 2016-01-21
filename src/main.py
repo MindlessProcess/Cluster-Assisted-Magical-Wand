@@ -66,7 +66,7 @@ def main(argv):
     print "Tolerance of: " + str(im_size * 0.025)
     print "#############################################"
     for i in image.histogram:
-        if i[1] > im_size * 0.05 :
+        if i[1] > im_size * 0.025 :
             ref_histogram.append(i)
             print i
     print "##############################################"

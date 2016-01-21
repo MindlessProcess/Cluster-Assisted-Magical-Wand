@@ -31,6 +31,12 @@ class KPos:
     def compare(self, pos1, pos2):
         return self.distance(pos1) - self.distance(pos2)
 
+    def move(self, dot_vector, weight):
+        if type(dot_vector) == type(KPos()):
+            vector = dot_vector.get_pos()
+        X = (vector[0] - self.pos[0]) * weight
+        Y = (vector[1] - self.pos[1]) * weight
+        self.pos = (X, Y)
 
 def main():
     color = KColor((1, 1, 2))
@@ -43,6 +49,11 @@ def main():
     print pos.compare(pos2, (1, 4))
     print "(0, 0) -> (3, 1) | (1, 2)"
     print pos.compare(pos3, pos2)
+
+    old = KPos(pos.get_pos())
+    pos.move(pos2, 0.1)
+    print pos.get_pos()
+    print old.get_pos()
 
 if __name__ == "__main__":
     main()
