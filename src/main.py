@@ -58,21 +58,23 @@ def main(argv):
         return
     image = Processing(argv[1])
     image.norm_data()
+    ref_histogram = []
     
     im_size = float(image.width * image.height)
     print "Image Size: " + str(im_size)
     print "Histogram of size: " + str(len(image.histogram))
-    print "Tolerance of: " + str(im_size / 500)
+    print "Tolerance of: " + str(im_size * 0.025)
     print "#############################################"
     for i in image.histogram:
-        if i[1] > im_size / 500 :
+        if i[1] > im_size * 0.05 :
+            ref_histogram.append(i)
             print i
     print "##############################################"
     for i in image.histogram:
         if i[1] != 0:
             print i
 
-    super_neuron = SuperNeuron(image.output, (image.height, image.width), image.histogram)
+    super_neuron = SuperNeuron(image.output, (image.height, image.width), ref_histogram)
 #    super_neuron.merge_neighbour_neurons()
 #    display = []
 
