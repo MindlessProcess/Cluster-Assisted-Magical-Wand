@@ -75,6 +75,7 @@ def main():
             print i
 
     super_neuron = SuperNeuron(image.output, (image.height, image.width), ref_histogram)
+    # super_neuron = SuperNeuron(img, (5, 5), ref_histogram)
 #    super_neuron.merge_neighbour_neurons()
 #    display = []
 

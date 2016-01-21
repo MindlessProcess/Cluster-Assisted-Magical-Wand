@@ -12,10 +12,11 @@ class SuperNeuron(object):
         self.color_histogram = color_histogram
         self.imploded_image = []
         self.neurons = []
-        for cluster in (cluster for cluster in self.color_histogram if cluster[1] > 0):
-            pixel = self._find_first_element_by_value(cluster[0])
-            if pixel:
-                self.neurons.append(Neuron(pixel))
+
+        for cluster in self.color_histogram:
+            pixels = [{'y': y, 'x': x, 'value': column} for y, row in enumerate(image) for x, column in enumerate(row) if column == cluster[0]]
+            if pixels != []:
+                self.neurons.append(Neuron(pixels))
         if DEBUG:
             print '\n-----\n'
             self._display_neurons()
@@ -97,9 +98,8 @@ class SuperNeuron(object):
     def _display_neurons(self):
         print 'Displaying neurons:\n'
         print 'Neurons: %d' % len(self.neurons)
-        print '---'
         for neuron in self.neurons:
-            print 'Neuron: %s' % neuron.image_segments
+            print 'Neuron.Length: %s' % len(neuron.image_segments)
 
     def _display_image(self, image):
         for y in range(len(image)):
