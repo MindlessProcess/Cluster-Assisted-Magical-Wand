@@ -20,12 +20,7 @@ class SuperNeuron(object):
                 self.neurons.append(Neuron(cluster[0], pixels))
         if DEBUG:
             print '\n-----\n'
-            self._display_neurons()
-            print '\n-----\n'
-        self._merge_neurons()
-        if DEBUG:
-            print '\n-----\n'
-            self._display_neurons()
+            self.display_neurons()
             print '\n-----\n'
 
     def transfert(self, image):
@@ -57,8 +52,6 @@ class SuperNeuron(object):
         if DEBUG:
             print '\n-----\n'
         self._implode_neurons()
-        if DEBUG:
-            self._display_neurons()
         return None
 
     def _find_first_element_by_value(self, value):
@@ -68,7 +61,7 @@ class SuperNeuron(object):
                     return {'y': y, 'x': x, 'value': self.image[y][x]}
         return None
 
-    def _merge_neurons(self):
+    def merge_neurons(self):
         for neuron in self.neurons:
             centroid = neuron.get_initial_centroid()
             for other_neuron in self.neurons:
@@ -95,7 +88,7 @@ class SuperNeuron(object):
             for segment in neuron.image_segments:
                 self.imploded_image[segment['y']][segment['x']] = segment['value']
 
-    def _display_neurons(self):
+    def display_neurons(self):
         print 'Neurons: %d' % len(self.neurons)
         print '---'
         for neuron in self.neurons:

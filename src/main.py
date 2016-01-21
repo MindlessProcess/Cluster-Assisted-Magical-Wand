@@ -76,23 +76,26 @@ def main():
             print i
 
     super_neuron = SuperNeuron(image.output, (image.height, image.width), ref_histogram)
-    sys.exit()
-    super_neuron.merge_neighbour_neurons()
+    super_neuron.merge_neurons()
+
+#    sys.exit()
+
     display = []
 
     print "Neural Network determines: "
     print str(len(super_neuron.neurons)) + " clusters in the image"
 
     for i in super_neuron.neurons:
-        cluster_data = i.image_segments
+        cluster_data = i.pixels
         cl = []
 
 ###        print "Cluster has been detected"
 ###        print "Size: " + str(len(cluster_data))
 
         for k in cluster_data:
-            cl.append((k['x'], k['y']))
+            cl.append((k[1], k[0]))
         cl_pxl = [(0, 0, 0)] * image.height * image.width
+
         for n in cl:
             pos = (n[1] * image.width) + n[0]
             cl_pxl[pos] = image.ptr[pos]
