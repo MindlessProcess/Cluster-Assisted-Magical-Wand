@@ -16,6 +16,7 @@ class KColor:
 class KPos:
     def __init__(self, XY = (0, 0)):
         self.pos = XY
+        self.old = (0, 0)
 
     def get_pos(self):
         return self.pos
@@ -32,11 +33,15 @@ class KPos:
         return self.distance(pos1) - self.distance(pos2)
 
     def move(self, dot_vector, weight):
+        self.old = self.pos
         if type(dot_vector) == type(KPos()):
             vector = dot_vector.get_pos()
         X = (vector[0] - self.pos[0]) * weight
         Y = (vector[1] - self.pos[1]) * weight
         self.pos = (X, Y)
+
+    def has_converged(self):
+        return self.old == self.pos
 
 def main():
     color = KColor((1, 1, 2))
