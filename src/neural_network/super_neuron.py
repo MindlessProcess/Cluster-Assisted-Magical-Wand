@@ -2,7 +2,7 @@ import sys
 
 from neuron import Neuron
 from .. import DEBUG
-from ..clustering.ktools import KPos
+from ..clustering.ktools import KPos, KColor
 
 
 class SuperNeuron(object):
@@ -15,9 +15,14 @@ class SuperNeuron(object):
         self.neurons = []
 
         for cluster in self.color_histogram:
-            pixels = [{'y': y, 'x': x, 'value': column} for y, row in enumerate(image) for x, column in enumerate(row) if column == cluster[0]]
+            pixels = [(y, x) for y, row in enumerate(image) for x, column in enumerate(row) if column == cluster[0]]
             if pixels != []:
-                self.neurons.append(Neuron(pixels))
+                self.neurons.append(Neuron(cluster[0], pixels))
+        if DEBUG:
+            print '\n-----\n'
+            self._display_neurons()
+            print '\n-----\n'
+        self._merge_neurons()
         if DEBUG:
             print '\n-----\n'
             self._display_neurons()
@@ -63,29 +68,23 @@ class SuperNeuron(object):
                     return {'y': y, 'x': x, 'value': self.image[y][x]}
         return None
 
-    def _boundary_in_neuron(self, neuron, boundary):
-        segments = neuron.image_segments
-        y = boundary['y']
-        x = boundary['x']
-        return (
-            self._boundaries_are_neighbours(segments, y - 1, x) or
-            self._boundaries_are_neighbours(segments, y, x - 1) or
-            self._boundaries_are_neighbours(segments, y, x + 1) or
-            self._boundaries_are_neighbours(segments, y + 1, x)
-        )
-
-    def _boundaries_are_neighbours(self, segments, y, x):
-        if y < 0 or x < 0:
-            return False
-        return [segment for segment in segments if
-                (segment['y'], segment['x']) == (y, x)] != []
-
-    def _merge_neurons(self, neuron_into_merge, neuron_to_merge):
-        if DEBUG:
-            print "Merging two neurons !"
-        neuron_into_merge.image_segments.extend(neuron_to_merge.image_segments)
-        self.neurons.remove(neuron_to_merge)
-        return None
+    def _merge_neurons(self):
+        for neuron in self.neurons:
+            centroid = neuron.get_initial_centroid()
+            for other_neuron in self.neurons:
+                if neuron == other_neuron:
+                    continue
+                other_centroid = other_neuron.get_initial_centroid()
+                centroid_color = self.image[centroid[0]][centroid[1]]
+                other_centroid_color = self.image[other_centroid[0]][other_centroid[1]]
+                if centroid_color != neuron.color:
+                    kcolor = KColor(centroid_color)
+                    if kcolor.distance(other_centroid_color) == 1 or kcolor.distance(other_neuron.color) == 0:
+                        print 'Merging neurons #%d and #%d' % (self.neurons.index(neuron), self.neurons.index(other_neuron))
+                        neuron.color = neuron.color if len(neuron.pixels) > len(other_neuron.pixels) else other_neuron.color
+                        neuron.pixels.extend(other_neuron.pixels)
+                        self.neurons.remove(other_neuron)
+                        centroid = neuron.get_initial_centroid()
 
     def _implode_neurons(self):
         for y in range(len(self.image)):
@@ -97,21 +96,15 @@ class SuperNeuron(object):
                 self.imploded_image[segment['y']][segment['x']] = segment['value']
 
     def _display_neurons(self):
-        print 'Displaying neurons:\n'
         print 'Neurons: %d' % len(self.neurons)
-        centroids = []
+        print '---'
         for neuron in self.neurons:
+            print 'Number: %d' % self.neurons.index(neuron)
             print 'Neuron.Length: %s' % len(neuron.pixels)
+            print 'Neuron.Color:', neuron.color
             print 'Neuron.Centroid:', neuron.get_initial_centroid()
-            centroids.append(neuron.get_initial_centroid())
+            print 'Neuron.Centroid.Color:', self.image[neuron.get_initial_centroid()[0]][neuron.get_initial_centroid()[1]]
             print '---'
-
-        for first_centroid in centroids:
-            kpos = KPos((first_centroid['y'], first_centroid['x']))
-            for second_centroid in centroids:
-                if first_centroid == second_centroid:
-                    continue
-                print 'Distance(%s, %s): %s' % (first_centroid, second_centroid, kpos.distance((first_centroid['y'], first_centroid['x'])))
 
     def _display_image(self, image):
         for y in range(len(image)):

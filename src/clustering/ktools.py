@@ -26,8 +26,8 @@ class KPos:
     def distance(self, YX):
         if type(YX) == type(KPos()):
             YX = YX.get_pos()
-        Y = (self.pos[0] - YX[0]) ** 2
-        X = (self.pos[1] - YX[1]) ** 2
+        Y = float(self.pos[0] - YX[0]) ** 2
+        X = float(self.pos[1] - YX[1]) ** 2
         return math.sqrt(Y + X)
 
     # 0: equidistance | -x : pos1 is closer | x : pos2 is closer
