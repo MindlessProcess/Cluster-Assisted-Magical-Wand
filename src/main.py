@@ -85,23 +85,15 @@ def main():
     print "Neural Network determines: "
     print str(len(super_neuron.neurons)) + " clusters in the image"
 
-    for i in super_neuron.neurons:
-        cluster_data = i.pixels
-        cl = []
-
-###        print "Cluster has been detected"
-###        print "Size: " + str(len(cluster_data))
-
-        for k in cluster_data:
-            cl.append((k[1], k[0]))
+    for neuron in super_neuron.neurons:
         cl_pxl = [(0, 0, 0)] * image.height * image.width
 
-        for n in cl:
-            pos = (n[1] * image.width) + n[0]
+        for pixel in neuron.pixels:
+            pos = (pixel[0] * image.width) + pixel[1]
             cl_pxl[pos] = image.ptr[pos]
-            cluster = Image.new("RGB", image.main_picture.size)
-            cluster.putdata(cl_pxl)
-            display.append(cluster)
+        cluster = Image.new("RGB", image.main_picture.size)
+        cluster.putdata(cl_pxl)
+        display.append(cluster)
     for i in display:
         i.show()
 
