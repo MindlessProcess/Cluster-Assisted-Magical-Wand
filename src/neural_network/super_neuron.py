@@ -2,6 +2,7 @@ import sys
 
 from neuron import Neuron
 from .. import DEBUG
+from ..clustering.ktools import KPos
 
 
 class SuperNeuron(object):
@@ -98,8 +99,19 @@ class SuperNeuron(object):
     def _display_neurons(self):
         print 'Displaying neurons:\n'
         print 'Neurons: %d' % len(self.neurons)
+        centroids = []
         for neuron in self.neurons:
-            print 'Neuron.Length: %s' % len(neuron.image_segments)
+            print 'Neuron.Length: %s' % len(neuron.pixels)
+            print 'Neuron.Centroid:', neuron.get_initial_centroid()
+            centroids.append(neuron.get_initial_centroid())
+            print '---'
+
+        for first_centroid in centroids:
+            kpos = KPos((first_centroid['y'], first_centroid['x']))
+            for second_centroid in centroids:
+                if first_centroid == second_centroid:
+                    continue
+                print 'Distance(%s, %s): %s' % (first_centroid, second_centroid, kpos.distance((first_centroid['y'], first_centroid['x'])))
 
     def _display_image(self, image):
         for y in range(len(image)):

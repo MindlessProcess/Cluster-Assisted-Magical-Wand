@@ -16,19 +16,19 @@ class KColor:
 
 
 class KPos:
-    def __init__(self, XY=(0, 0)):
-        self.pos = XY
+    def __init__(self, YX=(0, 0)):
+        self.pos = YX
         self.old = (0, 0)
 
     def get_pos(self):
         return self.pos
 
-    def distance(self, XY):
-        if type(XY) == type(KPos()):
-            XY = XY.get_pos()
-        X = (self.pos[0] - XY[0]) ** 2
-        Y = (self.pos[1] - XY[1]) ** 2
-        return math.sqrt(X + Y)
+    def distance(self, YX):
+        if type(YX) == type(KPos()):
+            YX = YX.get_pos()
+        Y = (self.pos[0] - YX[0]) ** 2
+        X = (self.pos[1] - YX[1]) ** 2
+        return math.sqrt(Y + X)
 
     # 0: equidistance | -x : pos1 is closer | x : pos2 is closer
     def compare(self, pos1, pos2):
@@ -38,9 +38,9 @@ class KPos:
         self.old = self.pos
         if type(dot_vector) == type(KPos()):
             vector = dot_vector.get_pos()
-        X = (vector[0] - self.pos[0]) * weight
-        Y = (vector[1] - self.pos[1]) * weight
-        self.pos = (X, Y)
+        Y = (vector[0] - self.pos[0]) * weight
+        X = (vector[1] - self.pos[1]) * weight
+        self.pos = (Y, X)
 
     def has_converged(self):
         return self.old == self.pos

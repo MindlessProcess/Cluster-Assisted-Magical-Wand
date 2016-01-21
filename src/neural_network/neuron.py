@@ -4,8 +4,11 @@ from random import randint
 class Neuron(object):
     """This is a class that implements an artificial neuron."""
     def __init__(self, pixels):
+        """
+        pixels: list of dictionaries [{'y', 'x', 'value'}, ...]
+        """
         self.delta = randint(0, 100)
-        self.image_segments = pixels
+        self.pixels = pixels
 
     def activate(self, inputs):
         """Activates the artificial neuron."""
@@ -21,7 +24,7 @@ class Neuron(object):
 
     def get_boundaries(self):
         boudaries_coordinates = []
-        for segment in self.image_segments:
+        for segment in self.pixels:
             if self._segment_is_boundary(segment):
                 boudaries_coordinates.append(
                     {k: segment.get(k, None) for k in ('y', 'x')}
@@ -30,14 +33,19 @@ class Neuron(object):
 
     def get_color(self):
         return (
-            self.image_segments[0]['value'] if
-            len(self.image_segments) > 0 else None
+            self.pixels[0]['value'] if
+            len(self.pixels) > 0 else None
         )
+
+    def get_initial_centroid(self):
+        y = sum(pixel['y'] for pixel in self.pixels)
+        x = sum(pixel['x'] for pixel in self.pixels)
+        return {'y': y / len(self.pixels), 'x': x / len(self.pixels)}
 
     def _coordinates_in_segments(self, y, x):
         if y < 0 or x < 0:
             return False
-        return [segment for segment in self.image_segments if
+        return [segment for segment in self.pixels if
                 (segment['y'], segment['x']) == (y, x)] != []
 
     def _segment_is_boundary(self, segment):
