@@ -33,18 +33,9 @@ class KPos:
     def compare(self, pos1, pos2):
         return self.distance(pos1) - self.distance(pos2)
 
-
-def main():
-    color = KColor((1, 1, 2))
-    print "True" if 1 == color.distance((1, 1, 1)) else "False"
-
-    pos = KPos()
-    pos2 = KPos((1, 2))
-    pos3 = KPos((3, 1))
-    print "(0, 0) -> (1, 2) | (1, 4)"
-    print pos.compare(pos2, (1, 4))
-    print "(0, 0) -> (3, 1) | (1, 2)"
-    print pos.compare(pos3, pos2)
-
-if __name__ == "__main__":
-    main()
+    def move(self, dot_vector, weight):
+        if type(dot_vector) == type(KPos()):
+            vector = dot_vector.get_pos()
+        X = (vector[0] - self.pos[0]) * weight
+        Y = (vector[1] - self.pos[1]) * weight
+        self.pos = (X, Y)
