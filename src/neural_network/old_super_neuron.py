@@ -9,15 +9,14 @@ class SuperNeuron(object):
     def __init__(self, image, image_size, color_histogram):
         self.image = image
         self.image_size = image_size
+        # color_histogram = [[(R, G, B), int], [(R, G, B), int], ...]
         self.color_histogram = color_histogram
         self.imploded_image = []
         self.neurons = []
-        for cluster in (cluster for cluster in self.color_histogram if cluster[1] > 0):
-            pixel = self._find_first_element_by_value(cluster[0])
-            if pixel:
-                self.neurons.append(Neuron(pixel))
+        for y in range(image_size[0]):
+            for x in range(image_size[1]):
+                self.neurons.append(Neuron(image[y][x], y, x))
         if DEBUG:
-            print '\n-----\n'
             self._display_neurons()
             print '\n-----\n'
 
@@ -52,13 +51,6 @@ class SuperNeuron(object):
         self._implode_neurons()
         if DEBUG:
             self._display_neurons()
-        return None
-
-    def _find_first_element_by_value(self, value):
-        for y in range(len(self.image)):
-            for x in range(len(self.image[y])):
-                if self.image[y][x] == value:
-                    return {'y': y, 'x': x, 'value': self.image[y][x]}
         return None
 
     def _boundary_in_neuron(self, neuron, boundary):

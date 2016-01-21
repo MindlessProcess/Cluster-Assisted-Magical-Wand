@@ -2,10 +2,11 @@
 
 import math
 
+
 class KColor:
-    def __init__(self, RGB = (0, 0, 0)):
+    def __init__(self, RGB=(0, 0, 0)):
         self.color = RGB
-        
+
     # Returns 1 if colors are neighbors
     def distance(self, RGB):
         R = (self.color[0] - RGB[0]) ** 2
@@ -13,8 +14,9 @@ class KColor:
         B = (self.color[2] - RGB[2]) ** 2
         return math.sqrt(R + G + B)
 
+
 class KPos:
-    def __init__(self, XY = (0, 0)):
+    def __init__(self, XY=(0, 0)):
         self.pos = XY
         self.old = (0, 0)
 
@@ -42,23 +44,3 @@ class KPos:
 
     def has_converged(self):
         return self.old == self.pos
-
-def main():
-    color = KColor((1, 1, 2))
-    print "True" if 1 == color.distance((1, 1, 1)) else "False"
-
-    pos = KPos()
-    pos2 = KPos((1, 2))
-    pos3 = KPos((3, 1))
-    print "(0, 0) -> (1, 2) | (1, 4)"
-    print pos.compare(pos2, (1, 4))
-    print "(0, 0) -> (3, 1) | (1, 2)"
-    print pos.compare(pos3, pos2)
-
-    old = KPos(pos.get_pos())
-    pos.move(pos2, 0.1)
-    print pos.get_pos()
-    print old.get_pos()
-
-if __name__ == "__main__":
-    main()

@@ -52,14 +52,14 @@ def get_arguments(arguments):
 
     return arguments
 
-def main(argv):
-    if False == os.path.isfile(argv[1]):
-        print "File [" + argv[1] + "] not found!"
+
+def main():
+    if os.path.isfile(sys.argv[1]) == False:
+        print "File [" + sys.argv[1] + "] not found!"
         return
-    image = Processing(argv[1])
+    image = Processing(sys.argv[1])
     image.norm_data()
     ref_histogram = []
-    
     im_size = float(image.width * image.height)
     tolerance = im_size * 0.02
     print "Image Size: " + str(im_size)

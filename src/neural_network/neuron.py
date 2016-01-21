@@ -3,11 +3,9 @@ from random import randint
 
 class Neuron(object):
     """This is a class that implements an artificial neuron."""
-    def __init__(self, pixel_value, pixel_y, pixel_x):
+    def __init__(self, pixel):
         self.delta = randint(0, 100)
-        self.image_segments = [
-            {'y': pixel_y, 'x': pixel_x, 'value': pixel_value}
-        ]
+        self.image_segments = [pixel]
 
     def activate(self, inputs):
         """Activates the artificial neuron."""

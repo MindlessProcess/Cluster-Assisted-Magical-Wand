@@ -3,4 +3,4 @@
 import sys
 from src import main
 
-main.main(sys.argv)
+main.main()
