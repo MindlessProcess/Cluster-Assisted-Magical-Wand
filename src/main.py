@@ -52,13 +52,14 @@ def get_arguments(arguments):
 
     return arguments
 
-def main(argv):
-    if False == os.path.isfile(argv[1]):
-        print "File [" + argv[1] + "] not found!"
+
+def main():
+    if os.path.isfile(sys.argv[1]) == False:
+        print "File [" + sys.argv[1] + "] not found!"
         return
-    image = Processing(argv[1])
+    image = Processing(sys.argv[1])
     image.norm_data()
-    
+
     im_size = float(image.width * image.height)
     print "Image Size: " + str(im_size)
     print "Histogram of size: " + str(len(image.histogram))
@@ -73,7 +74,7 @@ def main(argv):
             print i
 
     super_neuron = SuperNeuron(image.output, (image.height, image.width), image.histogram)
-#    super_neuron.merge_neighbour_neurons()
+    # super_neuron.merge_neighbour_neurons()
 #    display = []
 
 #    print "Neural Network determines: "

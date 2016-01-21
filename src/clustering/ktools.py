@@ -2,10 +2,11 @@
 
 import math
 
+
 class KColor:
-    def __init__(self, RGB = (0, 0, 0)):
+    def __init__(self, RGB=(0, 0, 0)):
         self.color = RGB
-        
+
     # Returns 1 if colors are neighbors
     def distance(self, RGB):
         R = (self.color[0] - RGB[0]) ** 2
@@ -13,8 +14,9 @@ class KColor:
         B = (self.color[2] - RGB[2]) ** 2
         return math.sqrt(R + G + B)
 
+
 class KPos:
-    def __init__(self, XY = (0, 0)):
+    def __init__(self, XY=(0, 0)):
         self.pos = XY
 
     def get_pos(self):
@@ -30,7 +32,8 @@ class KPos:
     # 0: equidistance | -x : pos1 is closer | x : pos2 is closer
     def compare(self, pos1, pos2):
         return self.distance(pos1) - self.distance(pos2)
-   
+
+
 def main():
     color = KColor((1, 1, 2))
     print "True" if 1 == color.distance((1, 1, 1)) else "False"
